@@ -42,7 +42,24 @@ export function useAuth(requiredRole?: UserRole) {
           );
         return;
       }
+
       const data = await res.json();
+      if (!data.authenticated) {
+        setAuth({
+          authenticated: false,
+          role: null,
+          name: "",
+          email: "",
+          userId: "",
+          loading: false,
+        });
+        if (requiredRole)
+          router.push(
+            requiredRole === "staff" ? "/staff/login" : "/student/login",
+          );
+        return;
+      }
+
       setAuth({
         authenticated: true,
         role: data.role,
@@ -74,9 +91,10 @@ export function useAuth(requiredRole?: UserRole) {
 
   // Poll every 10s for live sync
   useEffect(() => {
+    if (!auth.authenticated) return;
     const id = setInterval(check, 10000);
     return () => clearInterval(id);
-  }, [check]);
+  }, [check, auth.authenticated]);
 
   const logout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });

@@ -31,7 +31,7 @@ export const baseMetadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/logo.png",
+        url: "/cu-campus.png",
         width: 512,
         height: 512,
         alt: "CU-UP Logo",
@@ -42,7 +42,7 @@ export const baseMetadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} - ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: ["/logo.png"],
+    images: ["/cu-campus.png"],
     creator: "@cuupcommunity",
   },
   robots: {
@@ -61,7 +61,7 @@ export const baseMetadata = {
 export function generatePageMetadata({
   title,
   description,
-  image = "/logo.png",
+  image = "/cu-campus.png",
   path = "",
 }: {
   title: string;

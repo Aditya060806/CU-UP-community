@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: any }) {
 
   if (!project) return {};
 
-  const ogImage = project.image || "/logo.png";
+  const ogImage = project.image || "/cu-campus.png";
 
   return {
     metadataBase: new URL("https://cuup.org"),

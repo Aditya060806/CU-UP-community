@@ -49,7 +49,7 @@ function Loading() {
       <Image
         width={1080}
         height={1080}
-        src="/logo.png"
+        src="/cu-campus.png"
         alt="CU-UP Logo"
         className="w-20 h-20 mb-6 animate-pulse"
       />

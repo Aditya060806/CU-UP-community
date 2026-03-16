@@ -23,7 +23,7 @@ export async function generateMetadata({
     const allEvents = await getEvents();
     const event = allEvents.find((e) => e.id === eventId);
     if (event) {
-      const primaryImage = event.posterUrl || "/logo.png";
+      const primaryImage = event.posterUrl || "/cu-campus.png";
 
       return generatePageMetadata({
         title: event.title,
