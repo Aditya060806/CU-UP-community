@@ -10,6 +10,7 @@ import {
   CheckCircle,
   Clock,
   Github,
+  MapPinned,
   Users,
   Zap,
 } from "lucide-react";
@@ -134,6 +135,29 @@ export default function StudentDashboard() {
             ))}
           </div>
 
+          <Card className="border-0 shadow-sm mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
+            <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <p className="text-sm/none uppercase tracking-wide text-emerald-100">
+                  New Feature
+                </p>
+                <h2 className="text-2xl font-bold mt-2">Campus QR Locator</h2>
+                <p className="mt-1 text-emerald-50">
+                  Scan QR, see your live location, and navigate yourself across campus.
+                </p>
+              </div>
+              <Button
+                asChild
+                variant="secondary"
+                className="bg-white text-emerald-700 hover:bg-emerald-50"
+              >
+                <Link href="/student/location">
+                  <MapPinned className="h-4 w-4" /> Open Locator
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Announcements */}
             <div className="lg:col-span-2">
@@ -243,6 +267,15 @@ export default function StudentDashboard() {
                   >
                     <Link href="/communities">
                       <Users className="h-4 w-4" /> Browse Clubs
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full justify-start gap-2 border-emerald-200"
+                  >
+                    <Link href="/student/location">
+                      <MapPinned className="h-4 w-4 text-emerald-600" /> Scan Campus QR
                     </Link>
                   </Button>
                 </CardContent>

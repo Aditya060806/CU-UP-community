@@ -9,6 +9,7 @@ import {
   BookOpen,
   LayoutDashboard,
   LogOut,
+  MapPinned,
   MessageSquare,
   Settings,
   Shield,
@@ -61,6 +62,11 @@ export function PortalNav({
       href: "/student/doubts",
       label: "Doubts / Q&A",
       icon: <MessageSquare className="h-4 w-4" />,
+    },
+    {
+      href: "/student/location",
+      label: "Campus Locator",
+      icon: <MapPinned className="h-4 w-4" />,
     },
   ];
 

@@ -20,5 +20,27 @@
     "staffId": "STAFF001",
     "department": "Administration",
     "createdAt": "2026-03-16T08:06:12.976Z"
+  },
+  {
+    "id": "staff-ieee-001",
+    "name": "Dr. Vikash Kumar Mishra",
+    "email": "vikash.mishra@cuup.in",
+    "password": "fa8bdc8543b5a6de8aec4c9059810422b151502c6c5e70287c01f9846b8724e9",
+    "salt": "c8c60948bc5bd7adfa0bd607fd075e35",
+    "role": "staff",
+    "staffId": "L100357",
+    "department": "School of Computer Science and Engineering",
+    "createdAt": "2026-03-16T09:41:59.598Z"
+  },
+  {
+    "id": "student-1773654131880-dcb011",
+    "name": "adi",
+    "email": "aditya060806@gmail.com",
+    "password": "193b52252575481021fcbf35ffd5ca241526f0f9fd340f9469c7493c13d7f227",
+    "salt": "adb8b0d7b810f535648afbee2fb155c9",
+    "role": "student",
+    "enrollmentNo": "Laddoo@0608",
+    "department": "aditya060806@gmail.com",
+    "createdAt": "2026-03-16T09:42:11.883Z"
   }
 ]
