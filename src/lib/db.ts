@@ -1,6 +1,7 @@
 "use server";
 
 import { promises as fs } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import type {
   Announcement,
@@ -13,7 +14,11 @@ import type {
 } from "@/types/portal";
 import { communities } from "@/constants/member-colleges";
 
-const DB_DIR = path.join(process.cwd(), "src/data/db");
+const DB_DIR =
+  process.env.DB_DIR ??
+  (process.env.NODE_ENV === "production"
+    ? path.join(os.tmpdir(), "cu-up-community-db")
+    : path.join(process.cwd(), "src/data/db"));
 
 async function ensureDir() {
   await fs.mkdir(DB_DIR, { recursive: true });
