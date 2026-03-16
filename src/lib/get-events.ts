@@ -85,7 +85,7 @@ export async function getEvents(
           row.toObject() as unknown as EventSubmissionFormValues & {
             ID: string;
           };
-        const isCU-UP = eventData.organizationName === "CU-UP";
+        const isCUUP = eventData.organizationName === "CU-UP";
 
         const startDateTime = new Date(eventData.startDateTime);
         const endDateTime = new Date(eventData.endDateTime);
@@ -108,9 +108,8 @@ export async function getEvents(
           registrationLink: eventData.registrationLink || "",
           joinLink: eventData.eventWebsite || "",
           icon: "calendar" as keyof typeof iconsMap,
-          highlight: isCU-UP,
-          youtubeLink: "",
-          color: (isCU-UP ? "green" : "gray") as TEventColor,
+          highlight: isCUUP,
+          color: (isCUUP ? "green" : "gray") as TEventColor,
           organizationName: eventData.organizationName,
           posterUrl: eventData.eventPosterUrl,
           tags: (() => {
@@ -186,10 +185,10 @@ export async function getFilteredEventsByDateRange(
     // Past month: Show 3 events, prioritize CU-UP, then sort by date
     displayEvents = monthEvents
       .sort((a, b) => {
-        const aIsCU-UP = a.organizationName === "CU-UP";
-        const bIsCU-UP = b.organizationName === "CU-UP";
-        if (aIsCU-UP && !bIsCU-UP) return -1;
-        if (!aIsCU-UP && bIsCU-UP) return 1;
+        const aIsCUUP = a.organizationName === "CU-UP";
+        const bIsCUUP = b.organizationName === "CU-UP";
+        if (aIsCUUP && !bIsCUUP) return -1;
+        if (!aIsCUUP && bIsCUUP) return 1;
         return (
           new Date(a.startDateTime).getTime() -
           new Date(b.startDateTime).getTime()

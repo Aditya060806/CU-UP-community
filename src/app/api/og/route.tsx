@@ -169,7 +169,7 @@ export async function GET(request: NextRequest) {
               const endDate = new Date(event.endDateTime);
               const isEventPast = now > endDate;
               const isEventOngoing = now >= startDate && now <= endDate;
-              const isCU-UP = event.organizationName === "CU-UP";
+              const isCUUP = event.organizationName === "CU-UP";
 
               return (
                 <div
@@ -181,7 +181,7 @@ export async function GET(request: NextRequest) {
                     background: "rgba(255, 255, 255, 0.98)",
                     padding: "18px 28px",
                     borderRadius: "22px",
-                    border: isCU-UP
+                    border: isCUUP
                       ? "2px solid rgba(16, 185, 129, 0.2)"
                       : "1px solid rgba(226, 232, 240, 0.6)",
                     boxShadow: "0 4px 15px -5px rgba(0, 0, 0, 0.05)",
@@ -272,7 +272,7 @@ export async function GET(request: NextRequest) {
                         fontWeight: 500,
                       }}
                     >
-                      {isCU-UP && (
+                      {isCUUP && (
                         <div
                           style={{
                             display: "flex",
