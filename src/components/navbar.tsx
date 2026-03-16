@@ -182,7 +182,12 @@ export default function Navbar() {
               <Button asChild size="sm" className="cursor-pointer">
                 <Link href="/join">Join Us</Link>
               </Button>
-              <Button asChild variant="outline" size="sm" className="cursor-pointer">
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="cursor-pointer"
+              >
                 <Link href="/student/login">Portal Login</Link>
               </Button>
             </div>
@@ -240,9 +245,7 @@ export default function Navbar() {
                       variant="secondary"
                       className="w-full cursor-pointer"
                     >
-                      <Link href="/student/login">
-                        Portal Login
-                      </Link>
+                      <Link href="/student/login">Portal Login</Link>
                     </Button>
                   </div>
                 </nav>

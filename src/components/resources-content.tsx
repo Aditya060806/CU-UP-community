@@ -1,7 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, Code2, Globe, Lock, Rocket, Server, Sparkles } from "lucide-react";
+import {
+  BookOpen,
+  Code2,
+  Globe,
+  Lock,
+  Rocket,
+  Server,
+  Sparkles,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,43 +18,94 @@ const resources = [
   {
     category: "Web Development",
     icon: <Globe className="h-5 w-5" />,
-    color: "from-blue-100 to-blue-200 dark:from-blue-800/50 dark:to-blue-700/50",
+    color:
+      "from-blue-100 to-blue-200 dark:from-blue-800/50 dark:to-blue-700/50",
     textColor: "text-blue-700 dark:text-blue-400",
     hoverBorder: "hover:shadow-blue-500/10",
     accent: "via-blue-300/50",
     items: [
-      { name: "React Docs", url: "https://react.dev", desc: "Official React documentation" },
-      { name: "Next.js Learn", url: "https://nextjs.org/learn", desc: "Full-stack React framework guide" },
-      { name: "MDN Web Docs", url: "https://developer.mozilla.org", desc: "Web standards reference" },
-      { name: "TypeScript Handbook", url: "https://www.typescriptlang.org/docs", desc: "Typed JavaScript" },
+      {
+        name: "React Docs",
+        url: "https://react.dev",
+        desc: "Official React documentation",
+      },
+      {
+        name: "Next.js Learn",
+        url: "https://nextjs.org/learn",
+        desc: "Full-stack React framework guide",
+      },
+      {
+        name: "MDN Web Docs",
+        url: "https://developer.mozilla.org",
+        desc: "Web standards reference",
+      },
+      {
+        name: "TypeScript Handbook",
+        url: "https://www.typescriptlang.org/docs",
+        desc: "Typed JavaScript",
+      },
     ],
   },
   {
     category: "AI & Machine Learning",
     icon: <Sparkles className="h-5 w-5" />,
-    color: "from-purple-100 to-purple-200 dark:from-purple-800/50 dark:to-purple-700/50",
+    color:
+      "from-purple-100 to-purple-200 dark:from-purple-800/50 dark:to-purple-700/50",
     textColor: "text-purple-700 dark:text-purple-400",
     hoverBorder: "hover:shadow-purple-500/10",
     accent: "via-purple-300/50",
     items: [
-      { name: "fast.ai", url: "https://fast.ai", desc: "Practical deep learning for coders" },
-      { name: "Hugging Face", url: "https://huggingface.co/learn", desc: "NLP and transformers hub" },
-      { name: "Kaggle Learn", url: "https://www.kaggle.com/learn", desc: "Free data science micro-courses" },
-      { name: "CS229 Lectures", url: "https://cs229.stanford.edu", desc: "Stanford ML course notes" },
+      {
+        name: "fast.ai",
+        url: "https://fast.ai",
+        desc: "Practical deep learning for coders",
+      },
+      {
+        name: "Hugging Face",
+        url: "https://huggingface.co/learn",
+        desc: "NLP and transformers hub",
+      },
+      {
+        name: "Kaggle Learn",
+        url: "https://www.kaggle.com/learn",
+        desc: "Free data science micro-courses",
+      },
+      {
+        name: "CS229 Lectures",
+        url: "https://cs229.stanford.edu",
+        desc: "Stanford ML course notes",
+      },
     ],
   },
   {
     category: "DevOps & Cloud",
     icon: <Server className="h-5 w-5" />,
-    color: "from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50",
+    color:
+      "from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50",
     textColor: "text-green-700 dark:text-green-400",
     hoverBorder: "hover:shadow-green-500/10",
     accent: "via-green-300/50",
     items: [
-      { name: "Docker Docs", url: "https://docs.docker.com", desc: "Container fundamentals" },
-      { name: "Kubernetes Learn", url: "https://kubernetes.io/docs/tutorials", desc: "Container orchestration" },
-      { name: "AWS Skill Builder", url: "https://skillbuilder.aws", desc: "Free AWS training" },
-      { name: "Linux Journey", url: "https://linuxjourney.com", desc: "Interactive Linux learning" },
+      {
+        name: "Docker Docs",
+        url: "https://docs.docker.com",
+        desc: "Container fundamentals",
+      },
+      {
+        name: "Kubernetes Learn",
+        url: "https://kubernetes.io/docs/tutorials",
+        desc: "Container orchestration",
+      },
+      {
+        name: "AWS Skill Builder",
+        url: "https://skillbuilder.aws",
+        desc: "Free AWS training",
+      },
+      {
+        name: "Linux Journey",
+        url: "https://linuxjourney.com",
+        desc: "Interactive Linux learning",
+      },
     ],
   },
   {
@@ -57,38 +116,88 @@ const resources = [
     hoverBorder: "hover:shadow-red-500/10",
     accent: "via-red-300/50",
     items: [
-      { name: "TryHackMe", url: "https://tryhackme.com", desc: "Hands-on cybersecurity training" },
-      { name: "HackTheBox", url: "https://hackthebox.com", desc: "CTF challenges and labs" },
-      { name: "PortSwigger Web Academy", url: "https://portswigger.net/web-security", desc: "Web vulnerability labs" },
-      { name: "OWASP Top 10", url: "https://owasp.org/Top10", desc: "Web security risks guide" },
+      {
+        name: "TryHackMe",
+        url: "https://tryhackme.com",
+        desc: "Hands-on cybersecurity training",
+      },
+      {
+        name: "HackTheBox",
+        url: "https://hackthebox.com",
+        desc: "CTF challenges and labs",
+      },
+      {
+        name: "PortSwigger Web Academy",
+        url: "https://portswigger.net/web-security",
+        desc: "Web vulnerability labs",
+      },
+      {
+        name: "OWASP Top 10",
+        url: "https://owasp.org/Top10",
+        desc: "Web security risks guide",
+      },
     ],
   },
   {
     category: "Competitive Programming",
     icon: <Code2 className="h-5 w-5" />,
-    color: "from-amber-100 to-amber-200 dark:from-amber-800/50 dark:to-amber-700/50",
+    color:
+      "from-amber-100 to-amber-200 dark:from-amber-800/50 dark:to-amber-700/50",
     textColor: "text-amber-700 dark:text-amber-500",
     hoverBorder: "hover:shadow-amber-500/10",
     accent: "via-amber-300/50",
     items: [
-      { name: "Codeforces", url: "https://codeforces.com", desc: "Competitive programming contests" },
-      { name: "LeetCode", url: "https://leetcode.com", desc: "DSA interview preparation" },
-      { name: "CP Algorithms", url: "https://cp-algorithms.com", desc: "Algorithm explanations" },
-      { name: "USACO Guide", url: "https://usaco.guide", desc: "Structured CP learning path" },
+      {
+        name: "Codeforces",
+        url: "https://codeforces.com",
+        desc: "Competitive programming contests",
+      },
+      {
+        name: "LeetCode",
+        url: "https://leetcode.com",
+        desc: "DSA interview preparation",
+      },
+      {
+        name: "CP Algorithms",
+        url: "https://cp-algorithms.com",
+        desc: "Algorithm explanations",
+      },
+      {
+        name: "USACO Guide",
+        url: "https://usaco.guide",
+        desc: "Structured CP learning path",
+      },
     ],
   },
   {
     category: "Getting Started",
     icon: <Rocket className="h-5 w-5" />,
-    color: "from-orange-100 to-orange-200 dark:from-orange-800/50 dark:to-orange-700/50",
+    color:
+      "from-orange-100 to-orange-200 dark:from-orange-800/50 dark:to-orange-700/50",
     textColor: "text-orange-700 dark:text-orange-400",
     hoverBorder: "hover:shadow-orange-500/10",
     accent: "via-orange-300/50",
     items: [
-      { name: "The Odin Project", url: "https://www.theodinproject.com", desc: "Full web dev curriculum (free)" },
-      { name: "freeCodeCamp", url: "https://www.freecodecamp.org", desc: "Learn to code for free" },
-      { name: "Git & GitHub Docs", url: "https://docs.github.com/en/get-started", desc: "Version control essentials" },
-      { name: "CS50x", url: "https://cs50.harvard.edu/x", desc: "Harvard's intro to CS (free)" },
+      {
+        name: "The Odin Project",
+        url: "https://www.theodinproject.com",
+        desc: "Full web dev curriculum (free)",
+      },
+      {
+        name: "freeCodeCamp",
+        url: "https://www.freecodecamp.org",
+        desc: "Learn to code for free",
+      },
+      {
+        name: "Git & GitHub Docs",
+        url: "https://docs.github.com/en/get-started",
+        desc: "Version control essentials",
+      },
+      {
+        name: "CS50x",
+        url: "https://cs50.harvard.edu/x",
+        desc: "Harvard's intro to CS (free)",
+      },
     ],
   },
 ];
@@ -96,7 +205,10 @@ const resources = [
 export function ResourcesContent() {
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    },
   };
 
   const cardVariants = {
@@ -146,11 +258,15 @@ export function ResourcesContent() {
             <Card
               className={`h-full relative overflow-hidden bg-white/80 dark:bg-background/80 backdrop-blur-sm shadow-lg hover:shadow-xl ${resource.hoverBorder} transition-all duration-300`}
             >
-              <div className={`absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent ${resource.accent} to-transparent group-hover:opacity-100 transition-opacity duration-300`} />
+              <div
+                className={`absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent ${resource.accent} to-transparent group-hover:opacity-100 transition-opacity duration-300`}
+              />
               <CardContent className="p-6 h-full flex flex-col">
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-5">
-                  <div className={`w-10 h-10 rounded-full bg-linear-to-br ${resource.color} flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}>
+                  <div
+                    className={`w-10 h-10 rounded-full bg-linear-to-br ${resource.color} flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}
+                  >
                     <div className={resource.textColor}>{resource.icon}</div>
                   </div>
                   <h2 className={`text-lg font-bold ${resource.textColor}`}>
@@ -168,10 +284,14 @@ export function ResourcesContent() {
                         rel="noopener noreferrer"
                         className="flex flex-col gap-0.5 group/link hover:translate-x-1 transition-transform duration-200"
                       >
-                        <span className={`text-sm font-semibold ${resource.textColor} group-hover/link:underline underline-offset-2`}>
+                        <span
+                          className={`text-sm font-semibold ${resource.textColor} group-hover/link:underline underline-offset-2`}
+                        >
                           {item.name}
                         </span>
-                        <span className="text-xs text-muted-foreground">{item.desc}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {item.desc}
+                        </span>
                       </a>
                     </li>
                   ))}
@@ -196,8 +316,16 @@ export function ResourcesContent() {
           Know a great free resource that should be here? Contribute to our
           open-source repo and help your fellow students.
         </p>
-        <Button asChild size="lg" className="bg-white text-red-700 hover:bg-white/90 font-bold shadow-lg">
-          <Link href="https://github.com/cuuptech" target="_blank" rel="noopener noreferrer">
+        <Button
+          asChild
+          size="lg"
+          className="bg-white text-red-700 hover:bg-white/90 font-bold shadow-lg"
+        >
+          <Link
+            href="https://github.com/cuuptech"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Contribute on GitHub
           </Link>
         </Button>

@@ -7,7 +7,7 @@ import { ShowcasePageAnalytics } from "@/components/showcase-page-analytics";
 export const metadata = generatePageMetadata({
   title: "Submit Event",
   description:
-    "Submit your tech event to be featured on DK24. Share conferences, meetups, workshops, and other tech events with the Mangalore tech community.",
+    "Submit your tech event to be featured on CU-UP. Share conferences, meetups, workshops, and other tech events with the Mangalore tech community.",
   path: "/showcase-event",
 });
 

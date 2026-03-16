@@ -32,23 +32,70 @@ interface PortalNavProps {
   pendingCount?: number;
 }
 
-export function PortalNav({ role, name, email, onLogout, pendingCount = 0 }: PortalNavProps) {
+export function PortalNav({
+  role,
+  name,
+  email,
+  onLogout,
+  pendingCount = 0,
+}: PortalNavProps) {
   const pathname = usePathname();
 
   const studentLinks: NavItem[] = [
-    { href: "/student/dashboard", label: "Dashboard", icon: <LayoutDashboard className="h-4 w-4" /> },
-    { href: "/student/ragging", label: "Report Ragging", icon: <AlertTriangle className="h-4 w-4" /> },
-    { href: "/student/projects", label: "Submit Project", icon: <BookOpen className="h-4 w-4" /> },
-    { href: "/student/doubts", label: "Doubts / Q&A", icon: <MessageSquare className="h-4 w-4" /> },
+    {
+      href: "/student/dashboard",
+      label: "Dashboard",
+      icon: <LayoutDashboard className="h-4 w-4" />,
+    },
+    {
+      href: "/student/ragging",
+      label: "Report Ragging",
+      icon: <AlertTriangle className="h-4 w-4" />,
+    },
+    {
+      href: "/student/projects",
+      label: "Submit Project",
+      icon: <BookOpen className="h-4 w-4" />,
+    },
+    {
+      href: "/student/doubts",
+      label: "Doubts / Q&A",
+      icon: <MessageSquare className="h-4 w-4" />,
+    },
   ];
 
   const staffLinks: NavItem[] = [
-    { href: "/staff/dashboard", label: "Dashboard", icon: <LayoutDashboard className="h-4 w-4" />, badge: pendingCount },
-    { href: "/staff/ragging", label: "Ragging Reports", icon: <AlertTriangle className="h-4 w-4" /> },
-    { href: "/staff/projects", label: "Project Approvals", icon: <BookOpen className="h-4 w-4" /> },
-    { href: "/staff/clubs", label: "Manage Clubs", icon: <Users className="h-4 w-4" /> },
-    { href: "/staff/announcements", label: "Announcements", icon: <Bell className="h-4 w-4" /> },
-    { href: "/staff/doubts", label: "Doubts / Q&A", icon: <MessageSquare className="h-4 w-4" /> },
+    {
+      href: "/staff/dashboard",
+      label: "Dashboard",
+      icon: <LayoutDashboard className="h-4 w-4" />,
+      badge: pendingCount,
+    },
+    {
+      href: "/staff/ragging",
+      label: "Ragging Reports",
+      icon: <AlertTriangle className="h-4 w-4" />,
+    },
+    {
+      href: "/staff/projects",
+      label: "Project Approvals",
+      icon: <BookOpen className="h-4 w-4" />,
+    },
+    {
+      href: "/staff/clubs",
+      label: "Manage Clubs",
+      icon: <Users className="h-4 w-4" />,
+    },
+    {
+      href: "/staff/announcements",
+      label: "Announcements",
+      icon: <Bell className="h-4 w-4" />,
+    },
+    {
+      href: "/staff/doubts",
+      label: "Doubts / Q&A",
+      icon: <MessageSquare className="h-4 w-4" />,
+    },
   ];
 
   const links = role === "staff" ? staffLinks : studentLinks;
@@ -77,7 +124,9 @@ export function PortalNav({ role, name, email, onLogout, pendingCount = 0 }: Por
             {name.charAt(0).toUpperCase()}
           </div>
           <div className="overflow-hidden">
-            <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100 truncate">{name}</p>
+            <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100 truncate">
+              {name}
+            </p>
             <p className="text-xs text-zinc-500 truncate">{email}</p>
           </div>
         </div>
@@ -99,7 +148,10 @@ export function PortalNav({ role, name, email, onLogout, pendingCount = 0 }: Por
             {link.icon}
             <span>{link.label}</span>
             {link.badge != null && link.badge > 0 && (
-              <Badge variant="destructive" className="ml-auto text-xs px-1.5 py-0.5 min-w-[1.25rem] justify-center">
+              <Badge
+                variant="destructive"
+                className="ml-auto text-xs px-1.5 py-0.5 min-w-[1.25rem] justify-center"
+              >
                 {link.badge}
               </Badge>
             )}

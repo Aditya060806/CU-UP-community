@@ -16,28 +16,61 @@ interface AuthState {
 export function useAuth(requiredRole?: UserRole) {
   const router = useRouter();
   const [auth, setAuth] = useState<AuthState>({
-    authenticated: false, role: null, name: "", email: "", userId: "", loading: true,
+    authenticated: false,
+    role: null,
+    name: "",
+    email: "",
+    userId: "",
+    loading: true,
   });
 
   const check = useCallback(async () => {
     try {
       const res = await fetch("/api/auth/me", { cache: "no-store" });
       if (!res.ok) {
-        setAuth({ authenticated: false, role: null, name: "", email: "", userId: "", loading: false });
-        if (requiredRole) router.push(requiredRole === "staff" ? "/staff/login" : "/student/login");
+        setAuth({
+          authenticated: false,
+          role: null,
+          name: "",
+          email: "",
+          userId: "",
+          loading: false,
+        });
+        if (requiredRole)
+          router.push(
+            requiredRole === "staff" ? "/staff/login" : "/student/login",
+          );
         return;
       }
       const data = await res.json();
-      setAuth({ authenticated: true, role: data.role, name: data.name, email: data.email, userId: data.userId, loading: false });
+      setAuth({
+        authenticated: true,
+        role: data.role,
+        name: data.name,
+        email: data.email,
+        userId: data.userId,
+        loading: false,
+      });
       if (requiredRole && data.role !== requiredRole) {
-        router.push(data.role === "staff" ? "/staff/dashboard" : "/student/dashboard");
+        router.push(
+          data.role === "staff" ? "/staff/dashboard" : "/student/dashboard",
+        );
       }
     } catch {
-      setAuth({ authenticated: false, role: null, name: "", email: "", userId: "", loading: false });
+      setAuth({
+        authenticated: false,
+        role: null,
+        name: "",
+        email: "",
+        userId: "",
+        loading: false,
+      });
     }
   }, [router, requiredRole]);
 
-  useEffect(() => { check(); }, [check]);
+  useEffect(() => {
+    check();
+  }, [check]);
 
   // Poll every 10s for live sync
   useEffect(() => {

@@ -216,10 +216,10 @@ function IndividualForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="motivation">Why do you want to join DK24?</Label>
+          <Label htmlFor="motivation">Why do you want to join CU-UP?</Label>
           <Textarea
             id="motivation"
-            placeholder="Tell us what motivates you to join DK24, what you hope to learn, and how you plan to contribute to the community."
+            placeholder="Tell us what motivates you to join CU-UP, what you hope to learn, and how you plan to contribute to the community."
             {...register("motivation")}
             disabled={isSubmitting}
           />
@@ -496,11 +496,11 @@ function CollegeForm() {
 
         <div className="space-y-2">
           <Label htmlFor="expectations">
-            What do you expect from joining DK24?
+            What do you expect from joining CU-UP?
           </Label>
           <Textarea
             id="expectations"
-            placeholder="Tell us what your community hopes to gain from joining DK24..."
+            placeholder="Tell us what your community hopes to gain from joining CU-UP..."
             {...register("expectations")}
             disabled={isSubmitting}
           />

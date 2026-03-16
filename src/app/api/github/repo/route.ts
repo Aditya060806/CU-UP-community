@@ -5,7 +5,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const repoUrl = searchParams.get("url");
 
-  if (!repoUrl) return NextResponse.json({ error: "url is required" }, { status: 400 });
+  if (!repoUrl)
+    return NextResponse.json({ error: "url is required" }, { status: 400 });
 
   // Parse GitHub URL → owner/repo
   let match: RegExpMatchArray | null = null;
@@ -18,7 +19,11 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
 
-  if (!match) return NextResponse.json({ error: "Could not parse GitHub URL" }, { status: 400 });
+  if (!match)
+    return NextResponse.json(
+      { error: "Could not parse GitHub URL" },
+      { status: 400 },
+    );
 
   const [, owner, repo] = match;
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
@@ -28,15 +33,23 @@ export async function GET(request: Request) {
       headers: {
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+        ...(process.env.GITHUB_TOKEN
+          ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+          : {}),
       },
       next: { revalidate: 300 }, // cache 5 min
     });
 
     if (!res.ok) {
       if (res.status === 404)
-        return NextResponse.json({ error: "Repository not found. Make sure it's public." }, { status: 404 });
-      return NextResponse.json({ error: "GitHub API error" }, { status: res.status });
+        return NextResponse.json(
+          { error: "Repository not found. Make sure it's public." },
+          { status: 404 },
+        );
+      return NextResponse.json(
+        { error: "GitHub API error" },
+        { status: res.status },
+      );
     }
 
     const data = await res.json();
@@ -58,6 +71,9 @@ export async function GET(request: Request) {
     return NextResponse.json(info);
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: "Failed to fetch GitHub data" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch GitHub data" },
+      { status: 500 },
+    );
   }
 }

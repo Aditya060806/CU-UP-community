@@ -17,11 +17,17 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { name, college, description, logo, website } = body;
   if (!name || !college)
-    return NextResponse.json({ error: "Name and college are required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Name and college are required" },
+      { status: 400 },
+    );
 
   const club = await createClub({
     id: `club-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`,
-    name, college, description: description ?? "", logo: logo ?? "/placeholder.svg",
+    name,
+    college,
+    description: description ?? "",
+    logo: logo ?? "/placeholder.svg",
     website: website ?? "",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -37,7 +43,8 @@ export async function PATCH(request: Request) {
   const { id, ...updates } = await request.json();
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
   const updated = await updateClub(id, updates);
-  if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (!updated)
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(updated);
 }
 

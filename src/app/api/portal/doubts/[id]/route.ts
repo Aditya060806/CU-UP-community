@@ -4,12 +4,15 @@ import { getDoubtById, updateDoubt } from "@/lib/db";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await getSessionFromCookie();
     if (!session || session.role !== "staff") {
-      return NextResponse.json({ error: "Unauthorized. Only staff can answer doubts." }, { status: 403 });
+      return NextResponse.json(
+        { error: "Unauthorized. Only staff can answer doubts." },
+        { status: 403 },
+      );
     }
 
     const { id } = await params;
@@ -17,7 +20,10 @@ export async function PATCH(
     const { answer } = body;
 
     if (!answer || typeof answer !== "string") {
-      return NextResponse.json({ error: "Answer is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Answer is required" },
+        { status: 400 },
+      );
     }
 
     const doubt = await getDoubtById(id);
@@ -36,6 +42,9 @@ export async function PATCH(
     return NextResponse.json(updated);
   } catch (error) {
     console.error("Doubt PATCH error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }

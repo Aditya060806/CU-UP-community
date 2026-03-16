@@ -23,7 +23,11 @@ export interface Session {
   expiresAt: string;
 }
 
-export type RaggingStatus = "pending" | "investigating" | "resolved" | "dismissed";
+export type RaggingStatus =
+  | "pending"
+  | "investigating"
+  | "resolved"
+  | "dismissed";
 
 export interface RaggingReport {
   id: string;

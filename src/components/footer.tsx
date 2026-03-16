@@ -1,12 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import {
-  ArrowUp,
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-} from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

@@ -6,7 +6,13 @@ import { Copy, MessageSquare, Send } from "lucide-react";
 import { PortalNav } from "@/components/portal/portal-nav";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,7 +22,7 @@ import type { Doubt } from "@/types/portal";
 
 export default function StudentDoubtsPage() {
   const { authenticated, loading, name, email, logout } = useAuth("student");
-  
+
   const [doubts, setDoubts] = useState<Doubt[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ subject: "", question: "" });
@@ -76,10 +82,18 @@ export default function StudentDoubtsPage() {
       <PortalNav role="student" name={name} email={email} onLogout={logout} />
 
       <main className="flex-1 p-8 overflow-auto">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-5xl mx-auto space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-5xl mx-auto space-y-8"
+        >
           <div>
-            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">Doubts & Q&A</h1>
-            <p className="text-zinc-500 mt-1">Ask questions and get answers directly from the faculty.</p>
+            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
+              Doubts & Q&A
+            </h1>
+            <p className="text-zinc-500 mt-1">
+              Ask questions and get answers directly from the faculty.
+            </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
@@ -101,7 +115,9 @@ export default function StudentDoubtsPage() {
                         id="subject"
                         placeholder="e.g. Data Structures, React..."
                         value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, subject: e.target.value })
+                        }
                         required
                         disabled={isSubmitting}
                       />
@@ -113,13 +129,25 @@ export default function StudentDoubtsPage() {
                         placeholder="Describe your question in detail..."
                         className="min-h-[120px] resize-none"
                         value={formData.question}
-                        onChange={(e) => setFormData({ ...formData, question: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, question: e.target.value })
+                        }
                         required
                         disabled={isSubmitting}
                       />
                     </div>
-                    <Button type="submit" className="w-full bg-red-700 hover:bg-red-800 text-white" disabled={isSubmitting}>
-                      {isSubmitting ? "Submitting..." : <><Send className="h-4 w-4 mr-2" /> Submit Doubt</>}
+                    <Button
+                      type="submit"
+                      className="w-full bg-red-700 hover:bg-red-800 text-white"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        "Submitting..."
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4 mr-2" /> Submit Doubt
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
@@ -128,8 +156,10 @@ export default function StudentDoubtsPage() {
 
             {/* My Doubts List */}
             <div className="lg:col-span-2 space-y-4">
-              <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">My Questions</h2>
-              
+              <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">
+                My Questions
+              </h2>
+
               {doubts.length === 0 ? (
                 <Card className="border-dashed bg-transparent shadow-none">
                   <CardContent className="flex flex-col items-center justify-center py-12 text-zinc-500">
@@ -143,17 +173,32 @@ export default function StudentDoubtsPage() {
                     <Card key={doubt.id} className="overflow-hidden">
                       <div className="p-4 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-start justify-between gap-4">
                         <div>
-                          <p className="font-semibold text-zinc-900 dark:text-white">{doubt.subject}</p>
-                          <p className="text-xs text-zinc-500 mt-1">Asked on {new Date(doubt.createdAt).toLocaleDateString()}</p>
+                          <p className="font-semibold text-zinc-900 dark:text-white">
+                            {doubt.subject}
+                          </p>
+                          <p className="text-xs text-zinc-500 mt-1">
+                            Asked on{" "}
+                            {new Date(doubt.createdAt).toLocaleDateString()}
+                          </p>
                         </div>
-                        <Badge variant={doubt.status === "answered" ? "default" : "secondary"}>
-                          {doubt.status === "answered" ? "Answered" : "Waiting for Answer"}
+                        <Badge
+                          variant={
+                            doubt.status === "answered"
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
+                          {doubt.status === "answered"
+                            ? "Answered"
+                            : "Waiting for Answer"}
                         </Badge>
                       </div>
                       <div className="p-4">
-                        <p className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap">{doubt.question}</p>
+                        <p className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap">
+                          {doubt.question}
+                        </p>
                       </div>
-                      
+
                       {doubt.status === "answered" && doubt.answer && (
                         <div className="p-4 bg-red-50 dark:bg-red-900/10 border-t border-red-100 dark:border-red-900/30">
                           <div className="flex items-center gap-2 mb-2">

@@ -29,7 +29,8 @@ export function DiscordJoinBar({ onDismiss }: DiscordJoinBannerProps) {
     <div className="bg-primary text-primary-foreground py-2 px-4 flex items-center justify-center text-sm">
       {/*message text and join button */}
       <p className="font-medium text-center">
-        🚀 Join our Discord community — stay updated on events, projects &amp; opportunities!
+        🚀 Join our Discord community — stay updated on events, projects &amp;
+        opportunities!
       </p>
       <Button
         asChild

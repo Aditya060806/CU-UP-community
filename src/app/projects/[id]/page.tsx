@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: any }) {
   const ogImage = project.image || "/logo.png";
 
   return {
-    metadataBase: new URL("https://dk24.org"),
+    metadataBase: new URL("https://cuup.org"),
     title: project.title,
     description: project.description,
     openGraph: {
@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: { params: any }) {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: `${project.title} - DK24 Project`,
+          alt: `${project.title} - CU-UP Project`,
         },
       ],
       type: "website",
-      siteName: "DK24",
+      siteName: "CU-UP",
       url: `/projects/${id}`,
     },
     twitter: {
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: any }) {
       title: project.title,
       description: project.description,
       images: [ogImage],
-      creator: "@dk24community",
+      creator: "@cuupcommunity",
     },
   };
 }

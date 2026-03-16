@@ -64,8 +64,7 @@ export default async function AboutPage() {
               </h3>
               <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                 <li>
-                  Establish CU-UP as a nationally recognized student
-                  community
+                  Establish CU-UP as a nationally recognized student community
                 </li>
                 <li>
                   Ship 200+ open-source projects with real-world impact and

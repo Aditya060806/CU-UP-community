@@ -7,16 +7,21 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const statusFilter = searchParams.get("status");
   const session = await getSessionFromCookie();
-  
+
   let projects = await getPortalProjects();
 
   // Public: only show approved/featured
   // Staff: see everything  // Student: see own + approved/featured
   if (!session) {
-    projects = projects.filter((p) => p.status === "approved" || p.status === "featured");
+    projects = projects.filter(
+      (p) => p.status === "approved" || p.status === "featured",
+    );
   } else if (session.role === "student") {
     projects = projects.filter(
-      (p) => p.submittedBy === session.userId || p.status === "approved" || p.status === "featured",
+      (p) =>
+        p.submittedBy === session.userId ||
+        p.status === "approved" ||
+        p.status === "featured",
     );
   }
   // staff: no filter (all)
@@ -25,7 +30,12 @@ export async function GET(request: Request) {
     projects = projects.filter((p) => p.status === statusFilter);
   }
 
-  return NextResponse.json(projects.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+  return NextResponse.json(
+    projects.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    ),
+  );
 }
 
 export async function POST(request: Request) {
@@ -35,15 +45,34 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { githubUrl, name, description, language, stars, forks, topics, liveUrl, categories, department } = body;
+    const {
+      githubUrl,
+      name,
+      description,
+      language,
+      stars,
+      forks,
+      topics,
+      liveUrl,
+      categories,
+      department,
+    } = body;
     if (!githubUrl || !name)
-      return NextResponse.json({ error: "GitHub URL and name are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "GitHub URL and name are required" },
+        { status: 400 },
+      );
 
     const project = await createPortalProject({
       id: `proj-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`,
-      githubUrl, name, description: description ?? "",
-      language, stars: stars ?? 0, forks: forks ?? 0,
-      topics: topics ?? [], liveUrl: liveUrl ?? "",
+      githubUrl,
+      name,
+      description: description ?? "",
+      language,
+      stars: stars ?? 0,
+      forks: forks ?? 0,
+      topics: topics ?? [],
+      liveUrl: liveUrl ?? "",
       submittedBy: session.userId,
       submittedByName: session.name,
       department: department ?? "",
@@ -55,6 +84,9 @@ export async function POST(request: Request) {
     return NextResponse.json(project, { status: 201 });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

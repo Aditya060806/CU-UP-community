@@ -17,7 +17,9 @@ export const metadata = generatePageMetadata({
 export default async function ProjectsPage() {
   // Fetch from the live database
   const allProjects = await getPortalProjects();
-  const portalProjects = allProjects.filter(p => p.status === "approved" || p.status === "featured");
+  const portalProjects = allProjects.filter(
+    (p) => p.status === "approved" || p.status === "featured",
+  );
 
   // Map to the legacy Project interface expected by the UI components
   // Featured projects go first
@@ -27,7 +29,7 @@ export default async function ProjectsPage() {
       if (b.status === "featured" && a.status !== "featured") return 1;
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     })
-    .map(p => ({
+    .map((p) => ({
       id: p.id,
       title: p.name,
       description: p.description,
@@ -35,13 +37,16 @@ export default async function ProjectsPage() {
       github: p.githubUrl,
       link: p.liveUrl,
       tags: [p.language, ...(p.topics || [])].filter(Boolean) as string[],
-      categories: p.categories && p.categories.length > 0 ? p.categories : ["Other"],
-      contributors: [{
-        kind: "student",
-        name: p.submittedByName,
-        role: "Creator",
-        college: "Chandigarh University"
-      }]
+      categories:
+        p.categories && p.categories.length > 0 ? p.categories : ["Other"],
+      contributors: [
+        {
+          kind: "student",
+          name: p.submittedByName,
+          role: "Creator",
+          college: "Chandigarh University",
+        },
+      ],
     }));
 
   return (

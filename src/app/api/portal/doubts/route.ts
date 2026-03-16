@@ -7,12 +7,16 @@ import type { Doubt } from "@/types/portal";
 export async function GET(req: NextRequest) {
   try {
     const session = await getSessionFromCookie();
-    if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!session)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const allDoubts = await getDoubts();
-    
+
     // Sort so newest are first
-    allDoubts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    allDoubts.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 
     if (session.role === "staff") {
       // Staff see all doubts
@@ -24,7 +28,10 @@ export async function GET(req: NextRequest) {
     }
   } catch (error) {
     console.error("Doubts GET error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }
 
@@ -32,14 +39,20 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getSessionFromCookie();
     if (!session || session.role !== "student") {
-      return NextResponse.json({ error: "Unauthorized. Only students can post doubts." }, { status: 403 });
+      return NextResponse.json(
+        { error: "Unauthorized. Only students can post doubts." },
+        { status: 403 },
+      );
     }
 
     const body = await req.json();
     const { question, subject } = body;
 
     if (!question || typeof question !== "string") {
-      return NextResponse.json({ error: "Question is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Question is required" },
+        { status: 400 },
+      );
     }
 
     const newDoubt: Doubt = {
@@ -57,6 +70,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(newDoubt, { status: 201 });
   } catch (error) {
     console.error("Doubts POST error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }

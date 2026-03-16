@@ -19,7 +19,7 @@ export const individualSchema = z.object({
     .string()
     .min(
       100,
-      "Please tell us why you want to join DK24 (minimum 100 characters).",
+      "Please tell us why you want to join CU-UP (minimum 100 characters).",
     ),
 });
 
@@ -52,7 +52,7 @@ export const collegeSchema = z.object({
     .string()
     .min(
       100,
-      "Please tell us what you expect from joining DK24 (minimum 100 characters).",
+      "Please tell us what you expect from joining CU-UP (minimum 100 characters).",
     ),
 });
 

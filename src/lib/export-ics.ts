@@ -70,10 +70,10 @@ export function buildICalendar(events: IEvent[]): string {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//DK24//Calendar//EN",
+    "PRODID:-//CU-UP//Calendar//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    "X-WR-CALNAME:DK24 Events",
+    "X-WR-CALNAME:CU-UP Events",
   ];
 
   const currentDate = new Date();
@@ -92,7 +92,7 @@ export function buildICalendar(events: IEvent[]): string {
 
     lines.push(
       "BEGIN:VEVENT",
-      `UID:${escapeText(uid)}@dk24.org`,
+      `UID:${escapeText(uid)}@cuup.org`,
       `DTSTAMP:${now}`,
       `DTSTART:${start}`,
       `DTEND:${end}`,

@@ -43,13 +43,22 @@ export function HeroSection() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" asChild className="bg-red-700 hover:bg-red-800 text-white shadow-lg shadow-red-700/25">
+            <Button
+              size="lg"
+              asChild
+              className="bg-red-700 hover:bg-red-800 text-white shadow-lg shadow-red-700/25"
+            >
               <Link href="/join" className="flex items-center gap-2">
                 Join the Community
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="border-red-200 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-900/20">
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="border-red-200 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-900/20"
+            >
               <Link href="/projects" className="flex items-center gap-2">
                 <Github className="h-4 w-4" />
                 Explore Projects

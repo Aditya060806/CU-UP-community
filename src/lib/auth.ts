@@ -2,7 +2,13 @@
 
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
-import { createSession, createUser, deleteSession, getSessionByToken, getUserByEmail } from "@/lib/db";
+import {
+  createSession,
+  createUser,
+  deleteSession,
+  getSessionByToken,
+  getUserByEmail,
+} from "@/lib/db";
 import type { PortalUser, Session, UserRole } from "@/types/portal";
 
 const SESSION_COOKIE = "cu_portal_session";
@@ -16,7 +22,11 @@ export async function hashPassword(password: string, salt?: string) {
   return { hash, salt: s };
 }
 
-export async function verifyPassword(password: string, hash: string, salt: string): Promise<boolean> {
+export async function verifyPassword(
+  password: string,
+  hash: string,
+  salt: string,
+): Promise<boolean> {
   const { hash: h } = await hashPassword(password, salt);
   return crypto.timingSafeEqual(Buffer.from(h), Buffer.from(hash));
 }
@@ -25,11 +35,17 @@ export async function verifyPassword(password: string, hash: string, salt: strin
 
 export async function createSessionForUser(user: PortalUser): Promise<string> {
   const token = crypto.randomBytes(32).toString("hex");
-  const expiresAt = new Date(Date.now() + SESSION_HOURS * 3600 * 1000).toISOString();
+  const expiresAt = new Date(
+    Date.now() + SESSION_HOURS * 3600 * 1000,
+  ).toISOString();
   const session: Session = {
-    token, userId: user.id, role: user.role,
-    name: user.name, email: user.email,
-    createdAt: new Date().toISOString(), expiresAt,
+    token,
+    userId: user.id,
+    role: user.role,
+    name: user.name,
+    email: user.email,
+    createdAt: new Date().toISOString(),
+    expiresAt,
   };
   await createSession(session);
   return token;
@@ -40,7 +56,8 @@ export async function setSessionCookie(token: string) {
   jar.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax", path: "/",
+    sameSite: "lax",
+    path: "/",
     maxAge: SESSION_HOURS * 3600,
   });
 }
@@ -64,9 +81,15 @@ export async function ensureDefaultStaff() {
   if (!existing) {
     const { hash, salt } = await hashPassword("Staff@2024");
     await createUser({
-      id: "staff-001", name: "CU-UP Admin", email: "staff@cuup.in",
-      password: hash, salt, role: "staff", staffId: "STAFF001",
-      department: "Administration", createdAt: new Date().toISOString(),
+      id: "staff-001",
+      name: "CU-UP Admin",
+      email: "staff@cuup.in",
+      password: hash,
+      salt,
+      role: "staff",
+      staffId: "STAFF001",
+      department: "Administration",
+      createdAt: new Date().toISOString(),
     });
   }
 
@@ -75,18 +98,27 @@ export async function ensureDefaultStaff() {
   if (!existingIEEE) {
     const { hash, salt } = await hashPassword("IEEE@2024");
     await createUser({
-      id: "staff-ieee-001", name: "Dr. Vikash Kumar Mishra", email: "vikash.mishra@cuup.in",
-      password: hash, salt, role: "staff", staffId: "L100357",
-      department: "School of Computer Science and Engineering", createdAt: new Date().toISOString(),
+      id: "staff-ieee-001",
+      name: "Dr. Vikash Kumar Mishra",
+      email: "vikash.mishra@cuup.in",
+      password: hash,
+      salt,
+      role: "staff",
+      staffId: "L100357",
+      department: "School of Computer Science and Engineering",
+      createdAt: new Date().toISOString(),
     });
   }
 }
 
 /* ── Auth helpers ───────────────────────────────────────── */
 
-export async function loginUser(email: string, password: string): Promise<
-  { success: true; token: string; role: UserRole; name: string } |
-  { success: false; error: string }
+export async function loginUser(
+  email: string,
+  password: string,
+): Promise<
+  | { success: true; token: string; role: UserRole; name: string }
+  | { success: false; error: string }
 > {
   await ensureDefaultStaff();
   const user = await getUserByEmail(email);
@@ -98,17 +130,28 @@ export async function loginUser(email: string, password: string): Promise<
 }
 
 export async function registerStudent(data: {
-  name: string; email: string; password: string;
-  enrollmentNo: string; department?: string;
-}): Promise<{ success: true; token: string } | { success: false; error: string }> {
+  name: string;
+  email: string;
+  password: string;
+  enrollmentNo: string;
+  department?: string;
+}): Promise<
+  { success: true; token: string } | { success: false; error: string }
+> {
   const existing = await getUserByEmail(data.email);
   if (existing) return { success: false, error: "Email already registered" };
   const { hash, salt } = await hashPassword(data.password);
   const id = `student-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`;
   const user: PortalUser = {
-    id, name: data.name, email: data.email, password: hash, salt,
-    role: "student", enrollmentNo: data.enrollmentNo,
-    department: data.department, createdAt: new Date().toISOString(),
+    id,
+    name: data.name,
+    email: data.email,
+    password: hash,
+    salt,
+    role: "student",
+    enrollmentNo: data.enrollmentNo,
+    department: data.department,
+    createdAt: new Date().toISOString(),
   };
   await createUser(user);
   const token = await createSessionForUser(user);

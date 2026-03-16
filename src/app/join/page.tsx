@@ -16,9 +16,9 @@ import { siteConfig } from "@/config/site";
 import { XLogo } from "@/components/x-icon";
 
 export const metadata = generatePageMetadata({
-  title: "Join DK24",
+  title: "Join CU-UP",
   description:
-    "Be a part of the growing tech ecosystem in Mangalore. Join DK24 as an individual or bring your college community into our network. Connect, learn, and build together.",
+    "Be a part of the growing tech ecosystem in Mangalore. Join CU-UP as an individual or bring your college community into our network. Connect, learn, and build together.",
   path: "/join",
 });
 
@@ -27,7 +27,7 @@ export default function JoinUsPage() {
     <BackgroundPattern variant="default">
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         <PageHeader
-          title="Join DK24"
+          title="Join CU-UP"
           description="Be a part of the growing tech ecosystem in Mangalore"
         />
 
@@ -46,7 +46,7 @@ export default function JoinUsPage() {
                   <CardHeader>
                     <CardTitle>Join as an Individual</CardTitle>
                     <CardDescription>
-                      Students and professionals can join DK24 to contribute,
+                      Students and professionals can join CU-UP to contribute,
                       learn, and grow with the community
                     </CardDescription>
                   </CardHeader>
@@ -76,7 +76,7 @@ export default function JoinUsPage() {
                         We welcome students from any college in Mangalore, as
                         well as working professionals who want to contribute as
                         mentors. If you&apos;re passionate about technology and
-                        community building, DK24 is the right place for you!
+                        community building, CU-UP is the right place for you!
                       </p>
                     </div>
                   </CardContent>
@@ -92,7 +92,7 @@ export default function JoinUsPage() {
                   <CardHeader>
                     <CardTitle>Join as a College Community</CardTitle>
                     <CardDescription>
-                      Bring your college&apos;s tech community into the DK24
+                      Bring your college&apos;s tech community into the CU-UP
                       network
                     </CardDescription>
                   </CardHeader>
@@ -116,7 +116,7 @@ export default function JoinUsPage() {
 
                       <h3 className="text-lg font-medium mt-6">Requirements</h3>
                       <p className="text-muted-foreground">
-                        To join DK24 as a college community, you should have:
+                        To join CU-UP as a college community, you should have:
                       </p>
                       <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                         <li>
@@ -157,9 +157,9 @@ export default function JoinUsPage() {
                   </p>
                   <a
                     className="font-medium"
-                    href="mailto:dk24consortium@gmail.com"
+                    href="mailto:tarunagnihotri534@gmail.com"
                   >
-                    dk24consortium@gmail.com
+                    tarunagnihotri534@gmail.com
                   </a>
                 </div>
 
@@ -193,7 +193,7 @@ export default function JoinUsPage() {
                         className="flex items-center gap-2 font-medium hover:underline text-sm"
                       >
                         <social.icon className="w-5 h-5 shrink-0" />
-                        <span className="truncate">DK24 Consortium</span>
+                        <span className="truncate">CU-UP</span>
                       </a>
                     ))}
                   </div>

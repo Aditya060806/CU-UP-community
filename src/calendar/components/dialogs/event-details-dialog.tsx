@@ -149,7 +149,7 @@ export function EventDetailsDialog({
                           variant="default"
                           className="ml-2 bg-green-600 hover:bg-green-700 text-white"
                         >
-                          DK24
+                          CU-UP
                         </Badge>
                       )}
                     </div>

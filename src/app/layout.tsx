@@ -50,7 +50,7 @@ function Loading() {
         width={1080}
         height={1080}
         src="/logo.png"
-        alt="DK24 Logo"
+        alt="CU-UP Logo"
         className="w-20 h-20 mb-6 animate-pulse"
       />
       <div className="text-lg font-medium text-muted-foreground">

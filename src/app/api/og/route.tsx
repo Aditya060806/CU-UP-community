@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
                   lineHeight: 0.9,
                 }}
               >
-                DK24
+                CU-UP
               </span>
               <span
                 style={{
@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
             <span
               style={{ fontSize: "22px", color: "#64748b", fontWeight: 600 }}
             >
-              dk24.org
+              cuup.org
             </span>
           </div>
         </div>
@@ -169,7 +169,7 @@ export async function GET(request: NextRequest) {
               const endDate = new Date(event.endDateTime);
               const isEventPast = now > endDate;
               const isEventOngoing = now >= startDate && now <= endDate;
-              const isDK24 = event.organizationName === "DK24";
+              const isCU-UP = event.organizationName === "CU-UP";
 
               return (
                 <div
@@ -181,7 +181,7 @@ export async function GET(request: NextRequest) {
                     background: "rgba(255, 255, 255, 0.98)",
                     padding: "18px 28px",
                     borderRadius: "22px",
-                    border: isDK24
+                    border: isCU-UP
                       ? "2px solid rgba(16, 185, 129, 0.2)"
                       : "1px solid rgba(226, 232, 240, 0.6)",
                     boxShadow: "0 4px 15px -5px rgba(0, 0, 0, 0.05)",
@@ -272,7 +272,7 @@ export async function GET(request: NextRequest) {
                         fontWeight: 500,
                       }}
                     >
-                      {isDK24 && (
+                      {isCU-UP && (
                         <div
                           style={{
                             display: "flex",
@@ -292,7 +292,7 @@ export async function GET(request: NextRequest) {
                               textTransform: "uppercase",
                             }}
                           >
-                            by DK24
+                            by CU-UP
                           </span>
                         </div>
                       )}
@@ -372,7 +372,7 @@ export async function GET(request: NextRequest) {
               <span
                 style={{ fontSize: "18px", color: "#64748b", marginTop: "8px" }}
               >
-                Stay tuned on dk24.org
+                Stay tuned on cuup.org
               </span>
             </div>
           )}

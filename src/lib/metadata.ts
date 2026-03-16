@@ -9,7 +9,7 @@ export const baseMetadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "DK24",
+    "CU-UP",
     "tech community",
     "Mangalore",
     "college tech",
@@ -20,8 +20,8 @@ export const baseMetadata = {
     "collaborative learning",
     "project-based learning",
   ],
-  authors: [{ name: "DK24 Community" }],
-  creator: "DK24 Community",
+  authors: [{ name: "CU-UP Community" }],
+  creator: "CU-UP Community",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -34,7 +34,7 @@ export const baseMetadata = {
         url: "/logo.png",
         width: 512,
         height: 512,
-        alt: "DK24 Logo",
+        alt: "CU-UP Logo",
       },
     ],
   },
@@ -43,7 +43,7 @@ export const baseMetadata = {
     title: `${siteConfig.name} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: ["/logo.png"],
-    creator: "@dk24community",
+    creator: "@cuupcommunity",
   },
   robots: {
     index: true,
@@ -95,7 +95,7 @@ export function generatePageMetadata({
       title,
       description,
       images: [image],
-      creator: "@dk24community",
+      creator: "@cuupcommunity",
     },
     alternates: {
       canonical: url,

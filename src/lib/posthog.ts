@@ -60,7 +60,7 @@ export function getPostHogClient(): typeof posthog | null {
     loaded: (ph) => {
       // Set super properties that apply to all events
       ph.register({
-        community_type: "dk24",
+        community_type: "cuup",
         website_version: "1.0",
       });
 

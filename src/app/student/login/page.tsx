@@ -3,11 +3,26 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { AlertTriangle, Eye, EyeOff, Lock, Mail, User, BookOpen, GraduationCap } from "lucide-react";
+import {
+  AlertTriangle,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  User,
+  BookOpen,
+  GraduationCap,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import Link from "next/link";
 
 export default function StudentLogin() {
@@ -20,11 +35,18 @@ export default function StudentLogin() {
   // Login form
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   // Register form
-  const [regData, setRegData] = useState({ name: "", email: "", password: "", enrollmentNo: "", department: "" });
+  const [regData, setRegData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    enrollmentNo: "",
+    department: "",
+  });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setError("");
+    setLoading(true);
+    setError("");
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,14 +54,18 @@ export default function StudentLogin() {
     });
     const data = await res.json();
     setLoading(false);
-    if (!res.ok) { setError(data.error ?? "Login failed"); return; }
+    if (!res.ok) {
+      setError(data.error ?? "Login failed");
+      return;
+    }
     if (data.role === "staff") router.push("/staff/dashboard");
     else router.push("/student/dashboard");
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setError("");
+    setLoading(true);
+    setError("");
     const res = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,13 +73,20 @@ export default function StudentLogin() {
     });
     const data = await res.json();
     setLoading(false);
-    if (!res.ok) { setError(data.error ?? "Registration failed"); return; }
+    if (!res.ok) {
+      setError(data.error ?? "Registration failed");
+      return;
+    }
     router.push("/student/dashboard");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-950 via-zinc-900 to-amber-950 flex items-center justify-center p-4">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md"
+      >
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-2">
@@ -70,9 +103,14 @@ export default function StudentLogin() {
               <button
                 key={t}
                 type="button"
-                onClick={() => { setTab(t); setError(""); }}
+                onClick={() => {
+                  setTab(t);
+                  setError("");
+                }}
                 className={`flex-1 py-3 text-sm font-semibold capitalize transition-colors ${
-                  tab === t ? "text-amber-400 border-b-2 border-amber-400" : "text-zinc-500 hover:text-zinc-300"
+                  tab === t
+                    ? "text-amber-400 border-b-2 border-amber-400"
+                    : "text-zinc-500 hover:text-zinc-300"
                 }`}
               >
                 {t === "login" ? "Sign In" : "Register"}
@@ -85,7 +123,9 @@ export default function StudentLogin() {
               {tab === "login" ? "Welcome back" : "Create your account"}
             </CardTitle>
             <CardDescription className="text-zinc-400">
-              {tab === "login" ? "Sign in to your student account" : "Register with your CU enrollment number"}
+              {tab === "login"
+                ? "Sign in to your student account"
+                : "Register with your CU enrollment number"}
             </CardDescription>
           </CardHeader>
 
@@ -103,8 +143,13 @@ export default function StudentLogin() {
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
                     <Input
-                      type="email" placeholder="your@email.com" required
-                      value={loginData.email} onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                      type="email"
+                      placeholder="your@email.com"
+                      required
+                      value={loginData.email}
+                      onChange={(e) =>
+                        setLoginData({ ...loginData, email: e.target.value })
+                      }
                       className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
                     />
                   </div>
@@ -114,16 +159,33 @@ export default function StudentLogin() {
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
                     <Input
-                      type={showPass ? "text" : "password"} placeholder="••••••••" required
-                      value={loginData.password} onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                      type={showPass ? "text" : "password"}
+                      placeholder="••••••••"
+                      required
+                      value={loginData.password}
+                      onChange={(e) =>
+                        setLoginData({ ...loginData, password: e.target.value })
+                      }
                       className="pl-9 pr-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
                     />
-                    <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
-                      {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    <button
+                      type="button"
+                      onClick={() => setShowPass(!showPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+                    >
+                      {showPass ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </div>
-                <Button type="submit" disabled={loading} className="w-full bg-red-700 hover:bg-red-800 text-white font-bold">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-red-700 hover:bg-red-800 text-white font-bold"
+                >
                   {loading ? "Signing in…" : "Sign In"}
                 </Button>
               </form>
@@ -133,48 +195,91 @@ export default function StudentLogin() {
                   <Label className="text-zinc-300">Full Name</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
-                    <Input placeholder="Your full name" required value={regData.name}
-                      onChange={(e) => setRegData({ ...regData, name: e.target.value })}
-                      className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500" />
+                    <Input
+                      placeholder="Your full name"
+                      required
+                      value={regData.name}
+                      onChange={(e) =>
+                        setRegData({ ...regData, name: e.target.value })
+                      }
+                      className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                    />
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-zinc-300">Enrollment Number</Label>
                   <div className="relative">
                     <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
-                    <Input placeholder="e.g. 22BCE1234" required value={regData.enrollmentNo}
-                      onChange={(e) => setRegData({ ...regData, enrollmentNo: e.target.value })}
-                      className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500" />
+                    <Input
+                      placeholder="e.g. 22BCE1234"
+                      required
+                      value={regData.enrollmentNo}
+                      onChange={(e) =>
+                        setRegData({ ...regData, enrollmentNo: e.target.value })
+                      }
+                      className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                    />
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-zinc-300">Email</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
-                    <Input type="email" placeholder="your@email.com" required value={regData.email}
-                      onChange={(e) => setRegData({ ...regData, email: e.target.value })}
-                      className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500" />
+                    <Input
+                      type="email"
+                      placeholder="your@email.com"
+                      required
+                      value={regData.email}
+                      onChange={(e) =>
+                        setRegData({ ...regData, email: e.target.value })
+                      }
+                      className="pl-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                    />
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-zinc-300">Department (optional)</Label>
-                  <Input placeholder="e.g. Computer Science & Engineering" value={regData.department}
-                    onChange={(e) => setRegData({ ...regData, department: e.target.value })}
-                    className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500" />
+                  <Input
+                    placeholder="e.g. Computer Science & Engineering"
+                    value={regData.department}
+                    onChange={(e) =>
+                      setRegData({ ...regData, department: e.target.value })
+                    }
+                    className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                  />
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-zinc-300">Password</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
-                    <Input type={showPass ? "text" : "password"} placeholder="Min. 6 characters" required
-                      value={regData.password} onChange={(e) => setRegData({ ...regData, password: e.target.value })}
-                      className="pl-9 pr-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500" />
-                    <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
-                      {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    <Input
+                      type={showPass ? "text" : "password"}
+                      placeholder="Min. 6 characters"
+                      required
+                      value={regData.password}
+                      onChange={(e) =>
+                        setRegData({ ...regData, password: e.target.value })
+                      }
+                      className="pl-9 pr-9 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPass(!showPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+                    >
+                      {showPass ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </button>
                   </div>
                 </div>
-                <Button type="submit" disabled={loading} className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold"
+                >
                   {loading ? "Creating account…" : "Create Account"}
                 </Button>
               </form>
@@ -182,7 +287,12 @@ export default function StudentLogin() {
 
             <p className="text-center text-xs text-zinc-500 mt-4">
               Staff?{" "}
-              <Link href="/staff/login" className="text-amber-400 hover:underline">Staff Portal →</Link>
+              <Link
+                href="/staff/login"
+                className="text-amber-400 hover:underline"
+              >
+                Staff Portal →
+              </Link>
             </p>
           </CardContent>
         </Card>

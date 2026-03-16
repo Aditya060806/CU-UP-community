@@ -85,14 +85,27 @@ export function StatsSection() {
         className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
       >
         {stats.map((stat, index) => (
-          <StatCard key={stat.label} stat={stat} index={index} started={isInView} />
+          <StatCard
+            key={stat.label}
+            stat={stat}
+            index={index}
+            started={isInView}
+          />
         ))}
       </motion.div>
     </section>
   );
 }
 
-function StatCard({ stat, index, started }: { stat: StatItem; index: number; started: boolean }) {
+function StatCard({
+  stat,
+  index,
+  started,
+}: {
+  stat: StatItem;
+  index: number;
+  started: boolean;
+}) {
   const count = useCountUp(stat.numericValue, started, 2000 + index * 200);
 
   return (
@@ -105,16 +118,23 @@ function StatCard({ stat, index, started }: { stat: StatItem; index: number; sta
     >
       <div className="relative p-6 rounded-2xl bg-white dark:bg-background/80 border border-slate-100 dark:border-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 text-center overflow-hidden">
         {/* Background glow */}
-        <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 ${stat.bgColor}`} />
+        <div
+          className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 ${stat.bgColor}`}
+        />
 
-        <div className={`inline-flex p-3 rounded-xl ${stat.bgColor} mb-4 group-hover:scale-105 transition-transform duration-300`}>
+        <div
+          className={`inline-flex p-3 rounded-xl ${stat.bgColor} mb-4 group-hover:scale-105 transition-transform duration-300`}
+        >
           <div className={stat.color}>{stat.icon}</div>
         </div>
 
         <div className={`text-3xl md:text-4xl font-black mb-1 ${stat.color}`}>
-          {count.toLocaleString()}{stat.suffix}
+          {count.toLocaleString()}
+          {stat.suffix}
         </div>
-        <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
+        <p className="text-sm font-medium text-muted-foreground">
+          {stat.label}
+        </p>
       </div>
     </motion.div>
   );
