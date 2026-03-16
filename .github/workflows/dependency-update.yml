@@ -1,0 +1,69 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # Run every Monday at midnight
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  HUSKY: 0
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.30.3"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update dependencies
+        run: |
+          pnpm update
+          pnpm audit --fix
+
+      - name: Run tests
+        run: |
+          npx biome ci
+          pnpm type-check
+          pnpm build
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update dependencies"
+          title: "🔄 Automated Dependency Updates"
+          body: |
+            ## 🔄 Automated Dependency Updates
+
+            This PR contains automated dependency updates.
+
+            ### Changes
+            - Updated pnpm dependencies to latest versions
+            - Applied security fixes where available
+
+            ### Testing
+            - [x] Linting passes
+            - [x] Type checking passes
+            - [x] Build succeeds
+
+            Please review the changes and merge if everything looks good.
+          branch: automated-dependency-updates
+          delete-branch: true

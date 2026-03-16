@@ -1,0 +1,155 @@
+[
+  {
+    "id": "campusconnect",
+    "title": "CampusConnect",
+    "description": "A unified platform for CU-UP students to discover clubs, register for events, post projects, and connect with peers across departments — built and maintained by CU-UP.",
+    "tags": ["Next.js", "TypeScript", "PostgreSQL", "Tailwind", "Supabase"],
+    "image": "/projects/campusconnect.png",
+    "github": "https://github.com/cuuptech/campus-connect",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP Community",
+        "company": "CU-UP",
+        "role": "Open Source Team"
+      }
+    ],
+    "categories": ["Web"]
+  },
+  {
+    "id": "examprep",
+    "title": "ExamPrep AI",
+    "description": "An AI-powered exam preparation assistant that generates practice questions, summarizes notes, and provides personalized study plans using LLMs trained on CU syllabus data.",
+    "tags": ["Python", "FastAPI", "React", "OpenAI", "LangChain"],
+    "image": "/projects/examprep.png",
+    "github": "https://github.com/cuuptech/examprep-ai",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP AI/ML Society",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["Web", "AI/ML"]
+  },
+  {
+    "id": "lostfound",
+    "title": "CU Lost & Found",
+    "description": "A campus Lost & Found web app where students can report lost items and claim found ones. Features image upload, real-time notifications, and a search system.",
+    "tags": ["React", "Node.js", "MongoDB", "Cloudinary", "WebSockets"],
+    "image": "/projects/lostfound.png",
+    "github": "https://github.com/cuuptech/cu-lost-found",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP Web Dev Society",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["Web"]
+  },
+  {
+    "id": "ctfplatform",
+    "title": "CU-CTF Platform",
+    "description": "A self-hosted Capture The Flag competition platform built for CU-UP CyberSec Club to run internal and inter-college cybersecurity challenges with auto-grading and live scoreboards.",
+    "tags": ["Django", "PostgreSQL", "Docker", "Redis", "React"],
+    "image": "/projects/ctf.png",
+    "github": "https://github.com/cuuptech/cu-ctf",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP CyberSec Club",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["Web", "Tool"]
+  },
+  {
+    "id": "rclip",
+    "title": "RClip",
+    "description": "A CLI clipboard manager for developers that syncs your clipboard across machines using end-to-end encrypted relay, designed for pair programming and remote dev sessions.",
+    "tags": ["Go", "CLI", "Encryption", "WebSockets", "Redis"],
+    "image": "/projects/rclip.png",
+    "github": "https://github.com/cuuptech/rclip",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP Open Source Society",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["Tool"]
+  },
+  {
+    "id": "smartattend",
+    "title": "SmartAttend",
+    "description": "An IoT-based smart attendance system using RFID and facial recognition that auto-logs attendance and sends real-time notifications to students and faculty via a web dashboard.",
+    "tags": ["Python", "OpenCV", "Raspberry Pi", "React", "Firebase"],
+    "image": "/projects/smartattend.png",
+    "github": "https://github.com/cuuptech/smart-attend",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP Robotics & IoT Club",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["IoT", "AI/ML"]
+  },
+  {
+    "id": "devdaily",
+    "title": "DevDaily",
+    "description": "A daily digest bot that curates top GitHub trending repos, Hacker News articles, and dev blog posts and posts a personalized feed to Discord and Telegram every morning.",
+    "tags": ["Python", "Discord.py", "Telegram Bot", "RSS", "Cron"],
+    "image": "/projects/devdaily.png",
+    "github": "https://github.com/cuuptech/devdaily",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP Open Source Society",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["Bot", "Tool"]
+  },
+  {
+    "id": "eventify",
+    "title": "Eventify",
+    "description": "A full-featured event management platform for college tech fests — handles registrations, team formation, QR-based check-ins, results publishing, and certificate generation.",
+    "tags": ["Next.js", "Prisma", "PostgreSQL", "QR Code", "TypeScript"],
+    "image": "/projects/eventify.png",
+    "github": "https://github.com/cuuptech/eventify",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP Web Dev Society",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["Web"]
+  },
+  {
+    "id": "mlnotebook",
+    "title": "ML Notebook Hub",
+    "description": "A curated collection of Jupyter notebooks covering ML algorithms from scratch, with visual explanations and interactive demos — contributed to by students across batches.",
+    "tags": ["Python", "Jupyter", "Scikit-learn", "PyTorch", "Matplotlib"],
+    "image": "/projects/mlhub.png",
+    "github": "https://github.com/cuuptech/ml-notebook-hub",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "CU-UP AI/ML Society",
+        "company": "CU-UP",
+        "role": "Core Team"
+      }
+    ],
+    "categories": ["AI/ML", "Tool"]
+  }
+]

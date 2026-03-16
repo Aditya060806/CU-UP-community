@@ -1,0 +1,232 @@
+"use client";
+
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { format, startOfMonth, endOfMonth } from "date-fns";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { monthMap } from "@/calendar/helpers";
+import type { Dispatch, SetStateAction } from "react";
+import type { IEvent } from "@/calendar/interfaces";
+import type {
+  TBadgeVariant,
+  TVisibleHours,
+  TWorkingHours,
+} from "@/calendar/types";
+import { EventDetailsDialog } from "../components/dialogs/event-details-dialog";
+import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
+
+interface ICalendarContext {
+  selectedDate: Date;
+  setSelectedDate: (date: Date | undefined) => void;
+  selectedEventId: string | undefined;
+  setSelectedEventId: (id: string | undefined) => void;
+  badgeVariant: TBadgeVariant;
+  setBadgeVariant: (variant: TBadgeVariant) => void;
+  workingHours: TWorkingHours;
+  setWorkingHours: Dispatch<SetStateAction<TWorkingHours>>;
+  visibleHours: TVisibleHours;
+  setVisibleHours: Dispatch<SetStateAction<TVisibleHours>>;
+  events: IEvent[];
+  isLoading: boolean;
+  fetchError: string | null;
+  hoveredEventId: string | null;
+  setHoveredEventId: (id: string | null) => void;
+}
+
+export const CalendarContext = createContext({} as ICalendarContext);
+
+const WORKING_HOURS = {
+  0: { from: 0, to: 0 },
+  1: { from: 8, to: 17 },
+  2: { from: 8, to: 17 },
+  3: { from: 8, to: 17 },
+  4: { from: 8, to: 17 },
+  5: { from: 8, to: 17 },
+  6: { from: 8, to: 12 },
+};
+
+const VISIBLE_HOURS = { from: 7, to: 18 };
+
+export function CalendarProvider({
+  children,
+  initialDate,
+  initialEventId,
+}: {
+  children: React.ReactNode;
+  initialDate?: Date;
+  initialEventId?: string;
+}) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [badgeVariant, setBadgeVariant] = useState<TBadgeVariant>("colored");
+  const [visibleHours, setVisibleHours] =
+    useState<TVisibleHours>(VISIBLE_HOURS);
+  const [workingHours, setWorkingHours] =
+    useState<TWorkingHours>(WORKING_HOURS);
+
+  const [selectedDate, setSelectedDate] = useState(initialDate || new Date());
+  const [selectedEventId, setSelectedEventId] = useState(initialEventId);
+  const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
+  const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
+    new Map(),
+  );
+  const [fetchErrors, setFetchErrors] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get current month key and events for analytics
+  const currentMonthKey = format(selectedDate, "yyyy-MM");
+  const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
+
+  // Initialize calendar analytics
+  const { trackEventClick } = useCalendarAnalytics({
+    currentMonth: selectedDate.getMonth() + 1,
+    currentYear: selectedDate.getFullYear(),
+    eventsCount: currentMonthEvents.length,
+  });
+
+  useEffect(() => {
+    const dateParam = searchParams.get("date");
+    if (dateParam) {
+      const [monthStr, yearStr] = dateParam.toLowerCase().split("-");
+      const monthIndex = monthMap[monthStr];
+      const year = yearStr ? parseInt(yearStr, 10) : NaN;
+
+      if (monthIndex !== undefined && !Number.isNaN(year)) {
+        const newDate = new Date(year, monthIndex, 1);
+        setSelectedDate(newDate);
+      }
+    }
+
+    const eventIdParam = searchParams.get("eventId");
+    if (eventIdParam) {
+      setSelectedEventId(eventIdParam);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    if (selectedEventId) {
+      current.set("eventId", selectedEventId);
+    } else {
+      current.delete("eventId");
+    }
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
+    router.replace(`${window.location.pathname}${query}`);
+  }, [selectedEventId, router.replace, searchParams.entries]);
+
+  // Track event clicks when event is selected
+  useEffect(() => {
+    if (selectedEventId) {
+      const event = currentMonthEvents.find((e) => e.id === selectedEventId);
+      if (event) {
+        trackEventClick({
+          eventId: event.id,
+          eventName: event.title,
+          eventDate: event.startDateTime.split("T")[0],
+          organizationName: event.organizationName,
+        });
+      }
+    }
+  }, [selectedEventId, currentMonthEvents, trackEventClick]);
+
+  const fetchEventsForMonth = useCallback(
+    async (date: Date) => {
+      const monthKey = format(date, "yyyy-MM");
+      if (eventsCache.has(monthKey)) {
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+      const monthStart = startOfMonth(date);
+      const monthEnd = endOfMonth(date);
+
+      import("@/lib/get-events").then(({ getEvents }) => {
+        getEvents(monthStart, monthEnd)
+          .then((fetchedEvents) => {
+            setEventsCache((prev) =>
+              new Map(prev).set(monthKey, fetchedEvents),
+            );
+            setFetchErrors((prev) => {
+              if (!Object.hasOwn(prev, monthKey)) return prev;
+              const { [monthKey]: _removed, ...rest } = prev;
+              return rest;
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching events", error);
+            setFetchErrors((prev) => ({ ...prev, [monthKey]: error }));
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      });
+    },
+    [eventsCache],
+  );
+
+  useEffect(() => {
+    fetchEventsForMonth(selectedDate);
+  }, [selectedDate, fetchEventsForMonth]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: This effect is for pre-fetching events for the next and previous months
+  useEffect(() => {
+    const tempDate = new Date(selectedDate);
+    tempDate.setMonth(tempDate.getMonth() + 1);
+    fetchEventsForMonth(tempDate);
+    tempDate.setMonth(tempDate.getMonth() - 2);
+    fetchEventsForMonth(tempDate);
+  }, []);
+
+  const handleSelectDate = (date: Date | undefined) => {
+    if (!date) return;
+    setSelectedDate(date);
+  };
+
+  const fetchError = fetchErrors[currentMonthKey] ?? null;
+
+  return (
+    <CalendarContext.Provider
+      value={{
+        selectedDate,
+        setSelectedDate: handleSelectDate,
+        selectedEventId,
+        setSelectedEventId,
+        badgeVariant,
+        setBadgeVariant,
+        visibleHours,
+        setVisibleHours,
+        workingHours,
+        setWorkingHours,
+        events: currentMonthEvents,
+        isLoading,
+        fetchError,
+        hoveredEventId,
+        setHoveredEventId,
+      }}
+    >
+      {children}
+      <EventDetailsDialog
+        event={
+          selectedEventId
+            ? currentMonthEvents.find((e) => e.id === selectedEventId)
+            : undefined
+        }
+      ></EventDetailsDialog>
+    </CalendarContext.Provider>
+  );
+}
+
+export function useCalendar(): ICalendarContext {
+  const context = useContext(CalendarContext);
+  if (!context)
+    throw new Error("useCalendar must be used within a CalendarProvider.");
+  return context;
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "student-1773648338469-0a8062",
+    "name": "Test Student",
+    "email": "student@cuup.in",
+    "password": "6397dc258aabc4673fc23eaa689714be918121ccdcf33305253f555aaa89fa0a",
+    "salt": "b093801239714618ba211c3c7082a1ba",
+    "role": "student",
+    "enrollmentNo": "22BCS1234",
+    "department": "CSE",
+    "createdAt": "2026-03-16T08:05:38.469Z"
+  },
+  {
+    "id": "staff-001",
+    "name": "CU-UP Admin",
+    "email": "staff@cuup.in",
+    "password": "eced87014723e3aab8628c73ebb8b7386d57d64842f020028064eb4fa9a03801",
+    "salt": "4818c3cf5f41ceaf401d574a14f3906e",
+    "role": "staff",
+    "staffId": "STAFF001",
+    "department": "Administration",
+    "createdAt": "2026-03-16T08:06:12.976Z"
+  }
+]

@@ -1,0 +1,88 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { Plus, Calendar } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { ClientContainer } from "@/calendar/components/client-container";
+import { DownloadIcsDialog } from "@/components/download-ics-dialog";
+import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
+
+export function EventsTabs() {
+  const searchParams = useSearchParams();
+  const defaultTab = searchParams.get("tab") === "past" ? "past" : "upcoming";
+  const { trackViewChange } = useCalendarAnalytics({
+    autoTrackPageView: false,
+    autoTrackMonthChange: false,
+  });
+
+  const handleViewChange = (view: string) => {
+    if (view === "month" || view === "agenda") {
+      trackViewChange(view);
+    }
+  };
+
+  return (
+    <Tabs defaultValue={defaultTab} className="mt-8">
+      <TabsContent value="upcoming">
+        {/* Mobile View with Tabs for transitioning between Month and Agenda */}
+        <div className="lg:hidden">
+          <Tabs
+            defaultValue="month"
+            className="w-full"
+            onValueChange={handleViewChange}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <TabsList className="bg-muted/50">
+                <TabsTrigger
+                  value="agenda"
+                  className="inline-flex items-center gap-1"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Agenda
+                </TabsTrigger>
+                <TabsTrigger value="month">Month</TabsTrigger>
+              </TabsList>
+              <div className="flex items-center gap-2">
+                <DownloadIcsDialog
+                  buttonLabel="ICS"
+                  size="sm"
+                  className="h-10"
+                />
+                <Link href="/showcase-event">
+                  <Button size="sm" className="h-10">
+                    <Plus className="h-4 w-4 mr-1" />
+                    Add Event
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <TabsContent value="agenda" className="mt-0">
+              <ClientContainer view="agenda" />
+            </TabsContent>
+            <TabsContent value="month" className="mt-0">
+              <ClientContainer view="month" hideHeader={false} />
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Desktop View: Side-by-Side */}
+        <div className="hidden lg:flex lg:gap-6 items-stretch">
+          <div className="lg:w-1/2">
+            <ClientContainer view="agenda" hideHeader={true} />
+          </div>
+          <div className="lg:w-1/2">
+            <ClientContainer view="month" />
+          </div>
+        </div>
+      </TabsContent>
+
+      <TabsContent value="past">
+        <div className="py-10 text-center text-muted-foreground">
+          Past events archive coming soon.
+        </div>
+      </TabsContent>
+    </Tabs>
+  );
+}

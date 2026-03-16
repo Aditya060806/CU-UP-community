@@ -1,0 +1,63 @@
+import { Inter } from "next/font/google";
+import type { ReactNode } from "react";
+import React from "react";
+import "@/app/globals.css";
+import Image from "next/image";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
+import { PostHogProvider } from "@/components/posthog-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { baseMetadata } from "@/lib/metadata";
+import { Toaster } from "sonner";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = baseMetadata;
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <PostHogProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            disableTransitionOnChange
+          >
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">
+                <ErrorBoundary>{children}</ErrorBoundary>
+              </main>
+              <Footer />
+            </div>
+            <Toaster position="top-right" richColors />
+          </ThemeProvider>
+        </PostHogProvider>
+      </body>
+    </html>
+  );
+}
+
+function ErrorBoundary({ children }: { children: ReactNode }) {
+  return <Suspense fallback={<Loading />}>{children}</Suspense>;
+}
+
+function Loading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh]">
+      <Image
+        width={1080}
+        height={1080}
+        src="/logo.png"
+        alt="DK24 Logo"
+        className="w-20 h-20 mb-6 animate-pulse"
+      />
+      <div className="text-lg font-medium text-muted-foreground">
+        Loading...
+      </div>
+    </div>
+  );
+}
+
+const { Suspense } = React;
